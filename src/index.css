@@ -93,6 +93,14 @@ input:focus {
   align-items: center;
   gap: 1.2rem;
   cursor: pointer;
+  border-radius: 1rem; /* Optional: round corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); /* <-- This adds shadow */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.day:hover {
+  transform: translateY(-4px); /* Slight lift on hover */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
 }
 
 .day span {
