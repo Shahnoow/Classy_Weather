@@ -1,0 +1,23 @@
+.MapContainer {
+  height: 300px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+/* Medium screens */
+@media (max-width: 768px) {
+  .MapContainer {
+    height: 300px;
+    width: 100%;
+  }
+}
+
+/* Small screens */
+@media (max-width: 480px) {
+  .MapContainer {
+    height: 250px;
+    width: 100%;
+  }
+}

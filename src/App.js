@@ -1,4 +1,6 @@
 import React from "react";
+import "leaflet/dist/leaflet.css";
+import WorldMap from "./WorldMap";
 
 function getWeatherIcon(wmoCode) {
   const icons = new Map([
@@ -18,14 +20,6 @@ function getWeatherIcon(wmoCode) {
   return icons.get(arr);
 }
 
-function convertToFlag(countryCode) {
-  const codePoints = countryCode
-    .toUpperCase()
-    .split("")
-    .map((char) => 127397 + char.charCodeAt());
-  return String.fromCodePoint(...codePoints);
-}
-
 function formatDay(dateStr) {
   return new Intl.DateTimeFormat("en", {
     weekday: "short",
@@ -39,6 +33,8 @@ class App extends React.Component {
     displayLocation: "",
     weather: {},
     error: "",
+    lat: null,
+    lon: null,
   };
 
   fetchWeather = async () => {
@@ -57,6 +53,7 @@ class App extends React.Component {
 
       const { latitude, longitude, timezone, name, country_code } =
         geoData.results.at(0);
+
       this.setState({
         displayLocation: (
           <span>
@@ -68,8 +65,9 @@ class App extends React.Component {
             />
           </span>
         ),
+        lat: latitude,
+        lon: longitude,
       });
-
       // 2) Getting actual weather
       const weatherRes = await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min`
@@ -121,6 +119,11 @@ class App extends React.Component {
               location={this.state.displayLocation}
             />
           )}
+        <WorldMap
+          lat={this.state.lat}
+          lon={this.state.lon}
+          locationName={this.state.displayLocation}
+        />
       </div>
     );
   }
