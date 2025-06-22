@@ -82,7 +82,9 @@ class App extends React.Component {
     }
   };
 
-  setLocation = (e) => this.setState({ location: e.target.value });
+  setLocation = (e) => {
+    this.setState({ location: e.target.value, error: "" });
+  };
 
   // useEffect
 
